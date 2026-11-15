@@ -22,6 +22,10 @@ targets:
     platform: iOS
     sources:
       - App
+    # Apple Intelligence (iOS 26+). Weak-linked so the app still launches on iOS 17-25.
+    dependencies:
+      - sdk: FoundationModels.framework
+        weak: true
     info:
       path: App/Info.plist
       properties:
@@ -35,6 +39,9 @@ targets:
         UIRequiresFullScreen: true
         # Standard HTTPS only: skips the per-build "Missing Compliance" question.
         ITSAppUsesNonExemptEncryption: false
+        NSCameraUsageDescription: Post Sorter uses the camera to scan your letters and bills. Scans stay on this iPhone.
+        NSCalendarsWriteOnlyAccessUsageDescription: Post Sorter adds an event on a letter's due date when you ask it to. It never reads your calendar.
+        NSFaceIDUsageDescription: Post Sorter can use Face ID to keep your post private.
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: net.leatham.postsorter
