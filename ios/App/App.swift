@@ -9,7 +9,11 @@ struct PostSorterApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            if DemoMode.isOn {
+                DemoRootView()
+            } else {
+                RootView()
+            }
         }
         .modelContainer(for: [Letter.self, KnownSender.self])
     }

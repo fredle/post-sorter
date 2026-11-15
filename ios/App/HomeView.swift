@@ -46,6 +46,10 @@ struct HomeView: View {
     @State private var errorMessage: String?
     @State private var didRefreshReminders = false
 
+    init(initialTab: HomeTab = .todo) {
+        _tab = State(initialValue: initialTab)
+    }
+
     var body: some View {
         NavigationStack {
             List {
@@ -139,7 +143,8 @@ struct HomeView: View {
         }
         .task {
             // Rebuild pending reminders once per launch, so they match the stored letters.
-            guard !didRefreshReminders else { return }
+            // Demo mode (App Store screenshots) must not raise the notification prompt.
+            guard !didRefreshReminders, !DemoMode.isOn else { return }
             didRefreshReminders = true
             ReminderScheduler.rescheduleAll(letters.filter { !$0.isFiled })
         }

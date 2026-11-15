@@ -1,0 +1,87 @@
+name: screenshots
+
+# App Store screenshots from the simulator. Run by hand; the app's demo mode
+# (-demo -demoScreen <name>, see ios/App/DemoMode.swift) fills it with
+# made-up letters and opens each screen. The PNGs come back as an artifact.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shots:
+    runs-on: macos-26
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate the Xcode project
+        working-directory: ios
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Build for the simulator
+        working-directory: ios
+        run: |
+          xcodebuild build \
+            -project PostSorter.xcodeproj \
+            -scheme PostSorter \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO
+
+      # 6.9" display (1320x2868): the newest "Pro Max" simulator available.
+      - name: Boot a 6.9-inch iPhone
+        id: sim
+        run: |
+          xcrun simctl list devices available
+          UDID=$(xcrun simctl list devices available -j | python3 -c '
+          import json, sys
+          d = json.load(sys.stdin)["devices"]
+          best = None
+          for runtime, devs in d.items():
+              if "iOS" not in runtime:
+                  continue
+              for dev in devs:
+                  if "Pro Max" in dev["name"]:
+                      key = (runtime, dev["name"])
+                      if best is None or key > best[0]:
+                          best = (key, dev["udid"])
+          print(best[1] if best else "")
+          ')
+          if [ -z "$UDID" ]; then echo "No Pro Max simulator"; exit 1; fi
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl spawn "$UDID" defaults write -g AppleLocale en_GB
+          xcrun simctl spawn "$UDID" defaults write -g AppleLanguages -array en-GB
+          xcrun simctl status_bar "$UDID" override --time "9:41" --dataNetwork wifi --wifiMode active --wifiBars 3 \
+            --cellularMode active --cellularBars 4 --batteryState charged --batteryLevel 100
+
+      - name: Capture
+        env:
+          UDID: ${{ steps.sim.outputs.udid }}
+        run: |
+          APP=$(find ios/build/Build/Products/Debug-iphonesimulator -maxdepth 1 -name '*.app' | head -1)
+          xcrun simctl install "$UDID" "$APP"
+          mkdir -p shots
+          i=1
+          for screen in home review detail filed settings; do
+            for appearance in light dark; do
+              xcrun simctl ui "$UDID" appearance "$appearance"
+              xcrun simctl terminate "$UDID" net.leatham.postsorter 2>/dev/null || true
+              xcrun simctl launch "$UDID" net.leatham.postsorter -demo -demoScreen "$screen"
+              sleep 8
+              xcrun simctl io "$UDID" screenshot "shots/$i-$screen-$appearance.png"
+            done
+            i=$((i+1))
+          done
+          ls -la shots
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: shots/
