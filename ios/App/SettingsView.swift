@@ -70,7 +70,7 @@ struct SettingsView: View {
                     } icon: {
                         Image(systemName: OnDeviceModel.isAvailable ? "sparkles" : "text.viewfinder")
                     }
-                    Label("Letters, pages and reminders are stored only on this iPhone. Post Sorter makes no network connections.", systemImage: "lock.shield")
+                    Label("Letters, pages and reminders are stored only on this iPhone. Post Sorter only goes online if you send the developer a feedback note.", systemImage: "lock.shield")
                 } header: {
                     Text("Reading letters")
                 }
@@ -84,6 +84,12 @@ struct SettingsView: View {
                     Text(knownSenders.isEmpty
                          ? "When you save a letter, Post Sorter remembers its sender and type for next time."
                          : "\(knownSenders.count) remembered \(knownSenders.count == 1 ? "sender" : "senders"). Letters from them get their type filled in.")
+                }
+
+                Section {
+                    FeedbackButton()
+                } footer: {
+                    Text("Sends the developer a short note. Only the note and the app version are sent, never your letters, name or email.")
                 }
             }
             .navigationTitle("Settings")

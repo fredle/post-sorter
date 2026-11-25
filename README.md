@@ -5,7 +5,7 @@ Photograph a letter or bill and get what you need to do, by when, with a reminde
 Paper post still carries deadlines: bills, renewals, parking fines, school forms,
 hospital appointments, council tax. Post Sorter reads the letter on your iPhone,
 pulls out the sender, the action, the due date, the amount and the reference
-number, and reminds you before it's due. Nothing leaves the phone.
+number, and reminds you before it's due. Your letters never leave the phone.
 
 ## What it does
 
@@ -64,8 +64,10 @@ separate sync.
 
 ## Privacy
 
-- **Nothing leaves the phone.** Post Sorter makes no network connections. There
-  is no server, account, analytics, tracking or third-party SDK.
+- **Your letters never leave the phone.** The only network connection is an
+  optional feedback note from Settings (just what you type, plus the app
+  version, to feedback.leatham.net). There is no account, analytics, tracking
+  or third-party SDK.
 - Text recognition (Vision) and Apple Intelligence extraction (Foundation
   Models) both run on the device.
 - Permissions, each asked for only when needed:

@@ -44,7 +44,7 @@ WORKS WITH OR WITHOUT APPLE INTELLIGENCE
 On iPhones with Apple Intelligence, Post Sorter uses Apple's on-device model to understand the letter. On every other iPhone it uses on-device text recognition and smart date and amount detection, and it looks for words like "pay by", "due" and "payment date" to find the right deadline. Both work fully offline.
 
 PRIVATE BY DESIGN
-Your letters never leave your iPhone. Post Sorter makes no network connections. There's no account, no cloud OCR, no analytics and no tracking. Letters and page images are stored only in the app on your device.
+Your letters never leave your iPhone. Post Sorter only goes online if you choose to send the developer a feedback note, and that note contains only what you type. There's no account, no cloud OCR, no analytics and no tracking. Letters and page images are stored only in the app on your device.
 
 Post Sorter helps you keep track of your post. It doesn't pay bills or contact senders for you. Always check important dates against the original letter.
 
@@ -61,11 +61,11 @@ bills,mail,scanner,deadline,due date,council tax,parking fine,renewal,paperwork,
 
 ## App Privacy
 
-Data collection: **Data Not Collected.**
+Data collection: **Customer Support** only: the optional "What would make this better?" note from Settings, sent with the app version to the developer's server (feedback.leatham.net). Purpose: App Functionality.
 
-- The app collects no data. Letters, page images, recognised text, remembered senders and settings stay on the device and are never sent to the developer or anyone else.
-- Linked to the user: none.
-- Used for tracking: no. There are no tracking domains and no third-party SDKs. The privacy manifest (`PrivacyInfo.xcprivacy`) declares no tracking and no collected data types.
+- Letters, page images, recognised text, remembered senders and settings stay on the device and are never sent to the developer or anyone else.
+- Linked to the user: no.
+- Used for tracking: no. There are no tracking domains and no third-party SDKs. The privacy manifest (`PrivacyInfo.xcprivacy`) declares no tracking and one collected data type, customer support (not linked).
 - Required-reason APIs: UserDefaults (reason CA92.1, the app's own settings).
 - Permissions used, all for on-device features: Camera (scanning), Notifications (reminders), Calendar write-only (optional events), Face ID (optional lock).
 
@@ -81,6 +81,6 @@ Data collection: **Data Not Collected.**
 2. **Review after a scan.** Page thumbnail at the top, then Sender "Northfield Energy", Type Bill, Action "Pay £84.20", due date picker and the reminder stepper. Caption: "Snap it. Post Sorter fills in the rest."
 3. **Reminder notification** on the lock screen: "Due in 3 days: Northfield Energy – Pay £84.20". Caption: "Reminded before it's late."
 4. **Letter detail.** Zoomed page, due date, amount, reference number, and the Share as PDF and Mark as done buttons. Caption: "The original, the details and the deadline together."
-5. **Privacy.** The Settings screen showing "Stored only on this iPhone. No network connections", with the Face ID lock on. Caption: "Your post never leaves your phone."
+5. **Privacy.** The Settings screen showing "Stored only on this iPhone. Post Sorter only goes online if you send the developer a feedback note.", with the Face ID lock on. Caption: "Your post never leaves your phone."
 
 Use made-up sender names and amounts in every screenshot. Don't show real company branding.

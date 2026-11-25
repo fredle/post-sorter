@@ -17,7 +17,7 @@ Paper post still carries deadlines: bills, renewals, parking fines, school forms
 - Home screen: 'To do' grouped Overdue, This week, Later, with a swipe to mark done; 'Filed' archive of done and no-action letters; search across sender, summary, reference and the full recognised text
 - Letter detail: page images full screen with zoom, the recognised text, share as PDF, mark done or undo
 - Senders remembered: when a new letter matches a previous sender, prefill its type
-- Everything stays on the phone: SwiftData store, images as files in the app container, no network calls at all; optional Face ID lock
+- Everything stays on the phone: SwiftData store, images as files in the app container, no network calls except the optional feedback note from Settings; optional Face ID lock
 
 ## Non-goals
 

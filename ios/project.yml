@@ -39,6 +39,8 @@ targets:
         UIRequiresFullScreen: true
         # Standard HTTPS only: skips the per-build "Missing Compliance" question.
         ITSAppUsesNonExemptEncryption: false
+        # Where the Settings feedback button sends notes (Feedback.swift).
+        FeedbackURL: "https://feedback.leatham.net/v1/feedback"
         NSCameraUsageDescription: Post Sorter uses the camera to scan your letters and bills. Scans stay on this iPhone.
         NSCalendarsWriteOnlyAccessUsageDescription: Post Sorter adds an event on a letter's due date when you ask it to. It never reads your calendar.
         NSFaceIDUsageDescription: Post Sorter can use Face ID to keep your post private.
